@@ -55,32 +55,26 @@ struct StoryBrain {
     
     var number = 0
     
-    mutating func getStory(currentNumber: Int) -> String {
-        setCurrentStoryID(currentID: currentNumber)
+    func getStoryTitle() -> String {
         return stories[number].title
     }
     
-    mutating func setCurrentStoryID(currentID: Int) {
-        number = currentID
-    }
-    
-    func getNumber() -> Int {
-        return number
-    }
-    
-    func showOption1() -> String {
+    func getOption1() -> String {
         return stories[number].choice1
     }
     
-    func showOption2() -> String {
+    func getOption2() -> String {
         return stories[number].choice2
     }
     
-    func getDestination(option: Int) -> Int {
-        if option == 1 {
-            return stories[number].choice1Destination
+    mutating func getNextStory(userOption: String) {
+        let currentStory = stories[number]
+        if userOption == currentStory.choice1 {
+            number = currentStory.choice1Destination
+        } else {
+            number = currentStory.choice2Destination
         }
-        return stories[number].choice2Destination
+        
     }
     
 }

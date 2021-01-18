@@ -13,31 +13,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var choice1Button: UIButton!
     @IBOutlet weak var choice2Button: UIButton!
     
-    var stories = StoryBrain()
-    var destNumber: Int = 0
+    var storyBrain = StoryBrain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        choice1Button.tag = 1
-        choice2Button.tag = 2
-        
-        storyLabel.text = stories.getStory(currentNumber: 0)
-        choice1Button.setTitle(stories.showOption1(), for: .normal)
-        choice2Button.setTitle(stories.showOption2(), for: .normal)
-        
-        
+        updateUI()
     }
 
     @IBAction func optionPressed(_ sender: UIButton) {
-        updateUI(userOption: sender.tag)
+        storyBrain.getNextStory(userOption: sender.currentTitle!)
+        updateUI()
     }
     
-    private func updateUI(userOption: Int) {
-        let dest = stories.getDestination(option: userOption)
-        storyLabel.text = stories.getStory(currentNumber: dest)
-        choice1Button.setTitle(stories.showOption1(), for: .normal)
-        choice2Button.setTitle(stories.showOption2(), for: .normal)
+    private func updateUI() {
+        storyLabel.text = storyBrain.getStoryTitle()
+        choice1Button.setTitle(storyBrain.getOption1(), for: .normal)
+        choice2Button.setTitle(storyBrain.getOption2(), for: .normal)
     }
 }
 
